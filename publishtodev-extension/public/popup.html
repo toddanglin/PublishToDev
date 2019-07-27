@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Getting Started Extension's Popup</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+    integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+      font-size: 100%;
+      margin: 1rem;
+      min-width: 400px;
+      min-height: 400px;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+
+    #timezone,
+    .title::before {
+      content: 'title';
+      text-transform: uppercase;
+      font-size: .7rem;
+      color: #555;
+      clear: right;
+      display: block;
+    }
+
+    #timezone {
+      margin-top: .5rem;
+      font-size: .9rem;
+    }
+
+    .articleid {
+      font-size: .7rem;
+    }
+
+    .articleid::before {
+      content: '[article id: ';
+      text-transform: uppercase;
+      font-size: .7rem;
+      color: #555;
+    }
+
+    .articleid::after {
+      content: ']';
+      text-transform: uppercase;
+      font-size: .7rem;
+      color: #555;
+    }
+
+    #pubtime {
+      line-height: normal;
+      width: 50%;
+      padding: .5rem;
+      font-size: larger;
+      border: none;
+    }
+
+    #panel {
+      display: none;
+    }
+
+    body.error #panel #msgIcon,
+    body.progress #panel #msgIcon,
+    body.success #panel #msgIcon {
+      background-image: url('facepalm.png');
+      background-size: cover;
+      width: 5rem;
+      height: 5rem;
+    }
+
+    body.success #panel #msgIcon {
+      background-image: url('future.png');
+    }
+
+    body.progress #panel #msgIcon {
+      background-image: url('spinner.png');
+      animation: spin 1.5s infinite ease-in-out;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      10% {
+        transform: rotate(10deg);
+      }
+
+      70% {
+        transform: rotate(1080deg);
+      }
+
+      100% {
+        transform: rotate(1440deg);
+      }
+    }
+
+    #panel h2 {
+      width: 80%;
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    body.msg #panel {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      margin: -1rem;
+      background-color: rgba(255, 255, 255, .7);
+      z-index: 999;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    body.msg #main {
+      filter: blur(3px);
+    }
+
+    button {
+      margin-top: 1rem;
+    }
+  </style>
+  <script src="js/vendor.js"></script>
+</head>
+
+<body>
+  <div id="panel">
+    <div id="msgIcon"></div>
+    <h2 id="msg"></h2>
+    <button class="pure-button" id="btnMsgClose" style="display:none;">Close</button>
+  </div>
+  <div id="main">
+    <h1 class="title" id="title"></h1>
+    <div class="articleid" id="id"></div>
+    <label for="pubtime">Publish at:</label>
+    <input type="text" id="pubtime" placeholder="Select a date and time..." readonly />
+    <div id="timezone"></div>
+    <button class="pure-button pure-button-primary" id="schedule">Schedule Post</button>
+  </div>
+  <script src="js/popup.js"></script>
+</body>
+
+</html>

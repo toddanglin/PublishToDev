@@ -1,0 +1,10 @@
+{
+  "bindings": [
+    {
+      "name": "post",
+      "type": "activityTrigger",
+      "direction": "in"
+    }
+  ],
+  "scriptFile": "../dist/PublishToDevTo/index.js"
+}

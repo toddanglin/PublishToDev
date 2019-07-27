@@ -1,0 +1,36 @@
+{
+  "name": "publishtodev-extension",
+  "version": "1.0.0",
+  "description": "Schedule publishing for draft posts on Dev.To directly from browser extensions",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "clean": "rimraf dist"
+  },
+  "author": "Todd Anglin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "flatpickr": "^4.6.2",
+    "moment": "~2.24.0",
+    "moment-timezone": "^0.5.26"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.86",
+    "@types/jquery": "^3.3.30",
+    "@types/node": "^12.6.8",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.1.0",
+    "rimraf": "^2.6.3",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.4.5",
+    "typescript": "~3.4.5",
+    "webpack": "~4.17.2",
+    "webpack-cli": "~3.1.0",
+    "webpack-merge": "~4.2.1"
+  }
+}

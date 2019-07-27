@@ -1,0 +1,45 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "command": "npm",
+    "tasks": [
+        {
+            "label": "install",
+            "type": "shell",
+            "command": "npm",
+            "args": ["install"],
+            "options": {
+                "cwd": "${workspaceFolder}/publishtodev-extension"
+              },
+        },
+        {
+            "label": "update",
+            "type": "shell",
+            "command": "npm",
+            "args": ["update"],
+            "options": {
+                "cwd": "${workspaceFolder}/publishtodev-extension"
+              },
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "test"],
+            "options": {
+                "cwd": "${workspaceFolder}/publishtodev-extension"
+              },
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "group": "build",
+            "command": "npm",
+            "args": ["run", "watch"],
+            "options": {
+                "cwd": "${workspaceFolder}/publishtodev-extension"
+              },
+        }
+    ]
+}

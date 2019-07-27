@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PublishToDev Extension Options</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+    integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <style>
+    body {
+      font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+      font-size: 100%;
+      margin: 1rem;
+      min-width: 400px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    input {
+      width:80%;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    #save {
+      margin-top: 1rem;
+      background-image:none;
+    }
+    </style>
+  <script src="js/vendor.js"></script>
+</head>
+
+<body>
+  <label for="apikey">DevTo API Key Secret</label>
+  <input type="text" id="apikey" name="apikey" />
+
+  <div id="status"></div>
+  <button id="save" class="pure-button pure-button-primary">Save</button>
+
+  <script src="js/options.js"></script>
+</body>
+</html>
