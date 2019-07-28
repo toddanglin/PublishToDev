@@ -29,8 +29,12 @@ const orchestrator = df.orchestrator(function* (context) {
     // Activity to publish post to dev.to
     if (!isPublished) {
         try {
-            yield context.df.callActivity("PublishToDevTo", input);
+            let url = yield context.df.callActivity("PublishToDevTo", input);
             context.log(`Post with ID:${input.id} has been published to DevTo!`);   
+
+            // Add the public post URL to the post details (will get saved to storage in next step)
+            input.url = url;
+            input.ispublished = true;
 
             // Update table storage (isPublished)
             yield context.df.callActivity("UpdatePublishStatus", input);
@@ -39,6 +43,8 @@ const orchestrator = df.orchestrator(function* (context) {
 
             // TODO: Decide how to inform user that scheduled publish failed
         }
+    } else {
+        context.log(`Post status is already published or cancelled. Will not attempt to publish post with ID: ${ input.id }.`)
     }
 
     // TODO: (Optional) Activity to send notification to author about post publish (need author email)
