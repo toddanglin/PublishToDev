@@ -1,7 +1,7 @@
 ﻿import { AzureFunction, Context } from "@azure/functions"
 import * as fetch from "node-fetch";
 
-const activityFunction: AzureFunction = async function (context: Context): Promise<void> {
+const activityFunction: AzureFunction = async function (context: Context): Promise<string> {
     const item = context.bindings.post;
 
     // REST call to DevTo API to update post (requires post ID + User API Key)
@@ -17,11 +17,14 @@ const activityFunction: AzureFunction = async function (context: Context): Promi
         body: JSON.stringify(request_body)
     };
     try {
-        let url = `https://dev.to/api/articles/${item.id}`
-        let result = await fetch(url, request_options);
-        let json = await result.json();
+        const url = `https://dev.to/api/articles/${item.id}`;
+        const result = await fetch(url, request_options);
+        const json = await result.json();
 
         context.log("DevTo article updated", json);
+
+        const postUrl = json.url;
+        return postUrl; // Absolute URL to public post on dev.to
     } catch (err) {
         context.log("Argh. Something went wrong updating the article on DevTo.", err);
         
