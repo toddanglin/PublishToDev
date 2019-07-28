@@ -9,12 +9,18 @@ const activityFunction: AzureFunction = async function (context: Context): Promi
 
     // Query table storage first to validate the post has not been published
     try {
-        const resp = await getEntity(ts, tn, item.apikey, item.id);
-        if (resp) {
-            context.log("Existing record found", resp);
-            return item.ispublished;
+        const post = await getEntity(ts, tn, item.apikey, item.id, { payloadFormat: 'application/json;odata=nometadata' });
+        if (post) {
+            context.log("Existing record found", post);
+
+            if (post.ispublished == true || post.iscancelled == true) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            context.log("No existing record found", resp);
+            context.log("No existing record found", post);
+            return false;
         }
     } catch (error) {
         context.res = {
