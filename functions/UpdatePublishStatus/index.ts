@@ -8,10 +8,13 @@ import { AzureFunction, Context } from "@azure/functions"
 const activityFunction: AzureFunction = async function (context: Context): Promise<void> {
     const item = context.bindings.post;
     const updatedEntity = {
-        ispublished: true,
+        ispublished: item.ispublished,
         PartitionKey: item.apikey.toString(),
-        RowKey: item.id.toString()
+        RowKey: item.id.toString(),
+        url: item.url
     }
+
+    context.log("UpdatePublishStatus with these values", item.ispublished, item.url);
 
     // Save/update to storage details of post + instance ID for future status checks
     try {
