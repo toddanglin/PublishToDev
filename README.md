@@ -1,5 +1,5 @@
 # PublishTo.Dev
-This repo contains the source for the PublishTo.Dev project.
+This repo contains the source for the [PublishTo.Dev](https://www.publishto.dev) project.
 
 ## What is it?
 PublishTo.Dev is a simple utility that enables authors on the dev.to platform to schedule post publishing. Authors draft a post on DevTo, use the PublishTo.Dev browser extension to schedule the post, and then PublishTo.Dev makes the post live on the selected date and time using [Azure cloud functions](https://cda.ms/10P).
