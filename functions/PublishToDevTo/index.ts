@@ -5,9 +5,18 @@ const activityFunction: AzureFunction = async function (context: Context): Promi
     const item = context.bindings.post;
 
     // REST call to DevTo API to update post (requires post ID + User API Key)
-    let request_body = {
+
+    // USED FOR TESTING -- Only updates the post title at scheduled publish time
+    // TODO: Provide dynamic option to trigger test mode for future testing/dev
+    /*let request_body = {
         title: `TEST Update ${Date.now()}`
+    };*/
+
+    // USED FOR PROD -- Sets published status to true at scheduled publish time
+    let request_body = {
+        published: true
     };
+
     let request_options = {
         method: 'PUT',
         headers: {
