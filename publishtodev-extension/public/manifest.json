@@ -3,7 +3,7 @@
 
   "name": "PublishTo.Dev Extension",
   "description": "Schedule publishing for draft posts on Dev.To",
-  "version": "0.1",
+  "version": "0.1.6",
 
   "options_ui": {
     "page": "options.html",
@@ -23,18 +23,13 @@
 
   "content_scripts": [
       {
-          "matches": ["<all_urls>"],
+          "matches": ["https://publishto-dev.azurewebsites.net/api/schedulePost"],
           "js": ["js/vendor.js"]
       }
   ],
 
-  "background": {
-    "scripts": ["js/vendor.js"]
-  },
-
   "permissions": [
     "storage",
-    "activeTab",
-    "<all_urls>"
+    "activeTab"
   ]
 }
