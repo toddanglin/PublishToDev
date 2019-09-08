@@ -17,6 +17,7 @@ const eleMsg = document.querySelector('#msg');
 const eleBody = document.querySelector('body');
 const elePubTime = <HTMLInputElement>document.querySelector('#pubtime');
 const eleCloseBtn = document.querySelector('#btnMsgClose');
+const eleConfigureBtn = document.querySelector('#btnConfigure');
 
 (() => {
   const queryInfo = {
@@ -59,7 +60,7 @@ const eleCloseBtn = document.querySelector('#btnMsgClose');
       apikey: ""
     }, (items: { apikey }) => {
       if (items.apikey == "") {
-        showError("Please configure your dev.to user API key in the extension settings.")
+        showError("Please configure your dev.to user API key in the extension settings.", false, true);
         return;
       } else {
         userapikey = items.apikey;
@@ -107,7 +108,7 @@ const eleCloseBtn = document.querySelector('#btnMsgClose');
     }
   }
 
-  function showError(msg, showCloseButton?) {
+  function showError(msg, showCloseButton?, showConfigureButton?) {
     eleBody.className = "";
     eleBody.classList.add('msg');
     eleBody.classList.add('error');
@@ -116,13 +117,22 @@ const eleCloseBtn = document.querySelector('#btnMsgClose');
     if (showCloseButton) {
       eleCloseBtn.setAttribute('style', 'display:block;');
     }
+
+    if (showConfigureButton) {
+      eleConfigureBtn.setAttribute('style', 'display: block');
+    }
   }
 
   function closeMsg() {
     eleBody.className = "";
   }
 
+  function openOptions() {
+    chrome.tabs.create({'url': `chrome://extensions/?options=${chrome.runtime.id}`});
+  }
+
   eleCloseBtn.addEventListener("click", closeMsg);
+  eleConfigureBtn.addEventListener("click", openOptions);
   document.querySelector('#schedule').addEventListener("click", schedulePost);
   document.addEventListener('DOMContentLoaded', () => {
     // HACK CITY -- Couldn't for the life of me get the stupid date picker it init
