@@ -10,7 +10,7 @@ function save_options() {
     var status = document.querySelector('#status');
     status.textContent = 'Options saved.';
     setTimeout(function() {
-      status.textContent = "";
+      status.textContent = '';
     }, 750);
   });
 }
@@ -20,12 +20,12 @@ function save_options() {
 function restore_options() {
   // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get({
-    apikey: ""
+    apikey: ''
   }, function(items: {apikey}) {
     (<HTMLInputElement>document.querySelector('#apikey')).value = items.apikey;
   });
 }
 
-document.querySelector('#save').addEventListener("click", save_options);
+document.querySelector('#save').addEventListener('click', save_options);
 document.addEventListener('DOMContentLoaded', restore_options);
 

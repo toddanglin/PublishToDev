@@ -31,5 +31,7 @@
   "permissions": [
     "storage",
     "activeTab"
-  ]
+  ],
+
+  "web_accessible_resources": ["src/options/options.html"]
 }
