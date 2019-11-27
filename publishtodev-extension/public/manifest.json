@@ -2,8 +2,9 @@
   "manifest_version": 2,
 
   "name": "PublishTo.Dev Extension",
+  "short_name": "PublishToDev",
   "description": "Schedule publishing for draft posts on Dev.To",
-  "version": "0.1.6",
+  "version": "0.1.7",
 
   "options_ui": {
     "page": "options.html",
