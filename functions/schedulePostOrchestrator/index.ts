@@ -30,11 +30,19 @@ const orchestrator = df.orchestrator(function* (context) {
     if (!isPublished) {
         try {
             let url = yield context.df.callActivity("PublishToDevTo", input);
-            context.log(`Post with ID:${input.id} has been published to DevTo!`);   
 
-            // Add the public post URL to the post details (will get saved to storage in next step)
-            input.url = url;
-            input.ispublished = true;
+            if (url === undefined) {
+                context.log(`Post with ID:${input.id} FAILED to publish.`);
+                input.isfailed = true;
+
+                // TODO: Send notification to author?
+            } else {
+                context.log(`Post with ID:${input.id} has been published to DevTo!`);   
+
+                // Add the public post URL to the post details (will get saved to storage in next step)
+                input.url = url;
+                input.ispublished = true;
+            }
 
             // Update table storage (isPublished)
             yield context.df.callActivity("UpdatePublishStatus", input);

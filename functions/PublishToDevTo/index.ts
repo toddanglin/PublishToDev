@@ -1,6 +1,5 @@
 ﻿import { AzureFunction, Context } from "@azure/functions"
 import * as fetch from "node-fetch";
-import * as matter from "gray-matter";
 
 const activityFunction: AzureFunction = async function (context: Context): Promise<string> {
     const item = context.bindings.post;
@@ -28,26 +27,33 @@ const activityFunction: AzureFunction = async function (context: Context): Promi
     if (post.published_at === null && post.body_markdown && post.body_markdown.startsWith('---')) {
         context.log('Post created with v1 editor. Attempting to publish with markdown update.');
 
-        // To publish posts with font matter, must update the body_markdown
-        let updatePost = matter(post.body_markdown);
-        updatePost.data.published = true;
-        
-        // USED FOR TESTING -- Only updates the post title
-        //updatePost.data.title = `${updatePost.data.title} ${Date.now()}`;
+        if (post.body_markdown.indexOf('published: false') > 0) {
+            // Using simple string replacement because YAML parsing errors caused issues
+            // (DevTo allows ':' in description and title, which busts YAML parsing with libs like gray-matter)
+            post.body_markdown = post.body_markdown.replace('published: false', 'published: true');
 
-        context.log('Updated Post Markdown', updatePost.stringify(''));
+            context.log('Updated Post Markdown', post.body_markdown);
 
-        request_body = {
-            body_markdown: updatePost.stringify('')
+            request_body = {
+                body_markdown: post.body_markdown
+            }
+    
+            post = await updateDevToArticle(item.apikey, item.id, request_body, context);
+        } else {
+            const err = 'Body markdown did not have expected "publish: false" attribute.';
+            context.log(err, post.body_markdown);
+            throw new Error(err);
         }
-
-        post = await updateDevToArticle(item.apikey, item.id, request_body, context);
     }
 
-    context.log(`Article with ID: ${ item.id } published at ${ post.published_at }`);
-
-    const postUrl = post.url;
-    return postUrl; // Absolute URL to public post on dev.to
+    if (post.published_at === null) {
+        // Despite our best efforts, publishing has failed :(
+        context.log(`Publishing Failed for post with ID ${item.id}`);
+        return undefined;
+    } else {
+        context.log(`Article with ID: ${ item.id } published at ${ post.published_at }`);
+        return post.url; // Absolute URL to public post on dev.to
+    }
 };
 
 async function updateDevToArticle(apikey, id, body, context): Promise<any> {
@@ -69,6 +75,8 @@ async function updateDevToArticle(apikey, id, body, context): Promise<any> {
         return json;
     } catch (err) {
         context.log("Argh. Something went wrong updating the article on DevTo.", err);
+
+        // TODO: Automatic retry if failure is related to network?
 
         throw (err);
     }

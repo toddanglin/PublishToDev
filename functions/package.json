@@ -1,6 +1,6 @@
 {
   "name": "publishtodev",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "scripts": {
     "build": "tsc",
@@ -14,7 +14,6 @@
   "dependencies": {
     "azure-storage": "^2.10.3",
     "durable-functions": "^1.2.2",
-    "gray-matter": "^4.0.2",
     "moment": "^2.24.0",
     "node-fetch": "^2.6.0"
   },
