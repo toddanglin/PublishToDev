@@ -68,6 +68,13 @@ async function updateDevToArticle(apikey, id, body, context): Promise<any> {
     try {
         const url = `https://dev.to/api/articles/${id}`;
         const result = await fetch(url, request_options);
+
+        if (!result.ok) {
+            const errorText = await result.text();
+            context.log(`Updating DevTo Article HTTP Error: ${result.status}`, errorText);
+            throw (`${errorText} (HTTP: ${ result.status })`);
+        }
+
         const json = await result.json();
 
         context.log("DevTo article updated", json);
