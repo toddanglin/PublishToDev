@@ -29,7 +29,9 @@ const orchestrator = df.orchestrator(function* (context) {
     // Activity to publish post to dev.to
     if (!isPublished) {
         try {
-            let url = yield context.df.callActivity("PublishToDevTo", input);
+            let retryOptions = new df.RetryOptions(60000, 3)
+            // retryOptions.backoffCoefficient = 5; 1min, 5min, 25min
+            let url = yield context.df.callActivityWithRetry("PublishToDevTo", retryOptions, input);
 
             if (url === undefined) {
                 context.log(`Post with ID:${input.id} FAILED to publish.`);

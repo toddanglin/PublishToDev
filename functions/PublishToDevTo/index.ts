@@ -72,6 +72,10 @@ async function updateDevToArticle(apikey, id, body, context): Promise<any> {
         if (!result.ok) {
             const errorText = await result.text();
             context.log(`Updating DevTo Article HTTP Error: ${result.status}`, errorText);
+            if (result.status == 429){
+                const retryTime = result.headers.get('Retry-After');
+                context.log("RETRY AFTER", retryTime);
+            }
             throw (`${errorText} (HTTP: ${ result.status })`);
         }
 
