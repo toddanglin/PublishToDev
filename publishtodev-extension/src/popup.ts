@@ -26,7 +26,7 @@ const eleConfigureBtn = document.querySelector('#btnConfigure');
   };
 
   chrome.tabs.executeScript({
-    code: `document.querySelector('.body').dataset['articleId']`
+    code: `document.querySelector('#article-body').dataset['articleId']`
   }, (result) => {
     articleId = <any>result || '';
     init();
