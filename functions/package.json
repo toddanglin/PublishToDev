@@ -14,7 +14,7 @@
   "dependencies": {
     "azure-storage": "^2.10.3",
     "durable-functions": "^1.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
