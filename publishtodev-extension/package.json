@@ -17,7 +17,7 @@
   "dependencies": {
     "flatpickr": "^4.6.2",
     "moment": "~2.24.0",
-    "moment-timezone": "^0.5.26"
+    "moment-timezone": "^0.5.35"
   },
   "devDependencies": {
     "@types/chrome": "0.0.86",
